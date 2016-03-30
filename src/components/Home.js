@@ -16,7 +16,7 @@ class Home extends React.Component {
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
       >
-        <Text>{this.props.isFetching ? "LEL" : this.props.message}</Text>
+        <Text>{this.props.isFetching ? "Loading" : this.props.message}</Text>
       </ScrollView>
     );
   }
