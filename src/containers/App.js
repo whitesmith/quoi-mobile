@@ -1,7 +1,7 @@
 import React from "react-native";
 import { connect } from "react-redux";
 import { fetchData } from "../actions";
-import Home from "../components/Home"
+import Command from "../components/Command"
 
 const mapStateToProps = (state) => {
   return {
@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch) => {
 const App = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(Command);
 
 export default App

@@ -10,7 +10,7 @@ var {
   View
 } = React;
 
-class Home extends React.Component {
+class Command extends React.Component {
   buttonClicked() {
     console.log('button clicked');
   }
@@ -68,10 +68,10 @@ class Home extends React.Component {
   }
 }
 
-Home.propTypes = {
+Command.propTypes = {
 };
 
-Home.defaultProps = {
+Command.defaultProps = {
 };
 
 var styles = StyleSheet.create({
@@ -95,4 +95,4 @@ var styles = StyleSheet.create({
   }
 });
 
-export default Home;
+export default Command;
