@@ -10,7 +10,8 @@
     "react-native": "^0.22.2",
     "react-redux": "^4.4.1",
     "redux": "^3.3.1",
-    "redux-thunk": "1.0.3"
+    "redux-thunk": "1.0.3",
+    "tcomb-form-native": "^0.4.0"
   },
   "devDependencies": {
     "remote-redux-devtools": "^0.1.2"
