@@ -5,16 +5,13 @@ import Home from "../components/Home";
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.data.isFetching,
-    message: state.data.message
+    gameRunning: state.game.running,
+    gameEnded: state.game.ended
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onComponentDidMount: () => {
-      dispatch(fetchData())
-    }
   }
 }
 

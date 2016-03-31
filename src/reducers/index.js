@@ -1,27 +1,20 @@
 import { combineReducers } from "redux";
 import * as types from '../actions/actionTypes';
 
-const data = (state = {
-  isFetching: false,
-  message: ""
-}, action) => {
-  switch (action.type) {
-  case types.REQUEST_DATA:
-    return Object.assign({}, state, {
-      isFetching: true
-    });
-  case types.RECEIVE_DATA:
-    return Object.assign({}, state, {
-      isFetching: false,
-      message: action.data.message
-    });
-  default:
-    return state;
-  }
+/*************************
+Initial state
+**************************/
+const initialGameState = {
+  running: false,
+  ended: false
+};
+
+const game = (state = initialGameState, action) => {
+  return state;
 };
 
 const rootReducer = combineReducers({
-  data
+  game
 });
 
 export default rootReducer;
