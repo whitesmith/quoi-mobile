@@ -1,6 +1,8 @@
 import React from "react-native";
 import Dimensions from 'Dimensions';
 
+import CommandHelper from '../lib/CommandHelper';
+
 var {
   View,
   ScrollView,
@@ -13,15 +15,13 @@ var {
 class Command extends React.Component {
 
   componentDidMount() {
-    const { onNewQuestion } = this.props;
-    setTimeout(() => {
-      onNewQuestion();
-    }, 5000);
+    const { socket, onQuestionReady, onQuestionGo } = this.props;
+    CommandHelper.componentDidMount(socket, onQuestionReady, onQuestionGo);
   }
 
   buttonClicked() {
-    const { readyToAnswer } = this.props;
-    if (readyToAnswer) {
+    const { questionGo } = this.props;
+    if (questionGo) {
       console.log('button clicked');
     }
   }

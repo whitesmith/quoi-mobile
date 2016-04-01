@@ -6,9 +6,15 @@ export const login = () => {
   };
 }
 
-export const newQuestion = () => {
+export const questionReady = () => {
   return {
-    type: types.NEW_QUESTION
+    type: types.QUESTION_READY
+  }
+}
+
+export const questionGo = () => {
+  return {
+    type: types.QUESTION_GO
   }
 }
 

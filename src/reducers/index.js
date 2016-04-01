@@ -6,7 +6,7 @@ Initial state
 **************************/
 const initialGameState = {
   running: false,
-  readyToAnswer: false,
+  questionGo: false,
   ended: false
 };
 
@@ -18,9 +18,12 @@ const game = (state = initialGameState, action) => {
         running: true
       });
 
-    case types.NEW_QUESTION:
+    case types.QUESTION_READY:
+      return state;
+
+    case types.QUESTION_GO:
       return Object.assign({}, state, {
-        readyToAnswer: true
+        questionGo: true
       });
 
     default:

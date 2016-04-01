@@ -1,6 +1,6 @@
 import React, { Component } from "react-native";
 import { connect } from "react-redux";
-import { login, newQuestion } from "../actions";
+import { login, questionReady, questionGo } from "../actions";
 import Home from "../components/Home";
 import Command from "../components/Command";
 
@@ -14,8 +14,10 @@ class App extends Component {
       if (this.props.gameRunning) {
         return (
           <Command
-            readyToAnswer={this.props.readyToAnswer}
-            onNewQuestion={this.props.onNewQuestion}
+            socket={socket}
+            onQuestionReady={this.props.onQuestionReady}
+            questionGo={this.props.questionGo}
+            onQuestionGo={this.props.onQuestionGo}
           />
         );
       } else {
@@ -35,7 +37,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     gameRunning: state.game.running,
-    readyToAnswer: state.game.readyToAnswer,
+    questionGo: state.game.questionGo,
     gameEnded: state.game.ended
   }
 }
@@ -45,8 +47,11 @@ const mapDispatchToProps = (dispatch) => {
     onLogin: () => {
       dispatch(login());
     },
-    onNewQuestion: () => {
-      dispatch(newQuestion());
+    onQuestionReady: () => {
+      dispatch(questionReady());
+    },
+    onQuestionGo: () => {
+      dispatch(questionGo());
     }
   }
 }
