@@ -1,10 +1,6 @@
 import React, { Component, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 
-window.navigator.userAgent = "react-native";
-var io = require('socket.io-client/socket.io');
-const socket = io('http://192.168.0.127:3000', {jsonp: false});
-
 const Form = t.form.Form;
 
 const Model = t.struct({
@@ -14,13 +10,14 @@ const Model = t.struct({
 class Home extends Component {
 
   onPress = () => {
-    const { onLogin } = this.props;
+    const { onLogin, socket } = this.props;
 
     var value = this.refs.form.getValue();
     if (value) {
       socket.emit("login", {name: value.name});
-      // TODO: wait for accepted login message
-      onLogin();
+      socket.on('wait_game', () => {
+        onLogin();
+      });
     }
   }
 

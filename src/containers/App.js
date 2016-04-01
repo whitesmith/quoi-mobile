@@ -4,6 +4,10 @@ import { login, newQuestion } from "../actions";
 import Home from "../components/Home";
 import Command from "../components/Command";
 
+window.navigator.userAgent = "react-native";
+var io = require('socket.io-client/socket.io');
+const socket = io('http://jlbribeiro.tunnels.whitesmith.co/', {jsonp: false});
+
 class App extends Component {
 
    render() {
@@ -16,7 +20,11 @@ class App extends Component {
         );
       } else {
         return (
-          <Home onLogin={this.props.onLogin} />
+          <Home
+            socket={socket}
+            onLogin={this.props.onLogin}
+          />
+
         );
       }
    }
