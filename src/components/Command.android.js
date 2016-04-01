@@ -16,17 +16,18 @@ class Command extends React.Component {
 
   componentDidMount() {
     const { socket, questionGo, onQuestionReady, onQuestionGo } = this.props;
-    CommandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo);
+    this.commandHelper = new CommandHelper();
+    this.commandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo);
   }
 
   componentDidUpdate() {
     const { socket, questionGo, onQuestionReady, onQuestionGo } = this.props;
-    CommandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo);
+    this.commandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo);
   }
 
   buttonClicked(option) {
     const { questionGo, onQuestionAnswer } = this.props;
-    CommandHelper.handleButtonClick(questionGo, option, onQuestionAnswer);
+    this.commandHelper.handleButtonClick(questionGo, option, onQuestionAnswer);
   }
 
   render() {
