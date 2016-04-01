@@ -33,9 +33,10 @@ export const questionCorrection = (data) => {
   }
 }
 
-export const gameEnd = () => {
+export const gameEnd = (data) => {
   return {
-    type: types.GAME_END
+    type: types.GAME_END,
+    ranking: data.ranking
   }
 }
 

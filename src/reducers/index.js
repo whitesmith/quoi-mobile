@@ -16,7 +16,8 @@ const initialGameState = {
   ended: false,
   showRanking: false,
   name: '',
-  token: ''
+  token: '',
+  ranking: -1
 };
 
 const game = (state = initialGameState, action) => {
@@ -62,7 +63,8 @@ const game = (state = initialGameState, action) => {
         running: false,
         showRanking: true,
         showQuestionCorrection: false,
-        questionWasCorrect: false
+        questionWasCorrect: false,
+        ranking: action.ranking
       });
 
     case types.SAVE_TOKEN:

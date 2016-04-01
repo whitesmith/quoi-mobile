@@ -11,9 +11,9 @@ class App extends Component {
   componentDidMount() {
     const { socket, onLogin, onQuestionReady, onQuestionGo, onQuestionCorrection, onGameEnd, name, token } = this.props;
 
-    socket.on('reconnect', () => {
-      socket.emit('login', {name: name, token: token});
-    });
+    // socket.on('reconnect', () => {
+    //   socket.emit('login', {name: name, token: token});
+    // });
 
     socket.on('game_wait_start', () => {
       onLogin();
@@ -32,8 +32,8 @@ class App extends Component {
       onQuestionCorrection(data);
     });
 
-    socket.on('game_end', () => {
-      onGameEnd();
+    socket.on('game_end', (data) => {
+      onGameEnd(data);
     });
   }
 
@@ -58,7 +58,7 @@ class App extends Component {
       } else {
         if (this.props.showRanking) {
           return (
-            <Ranking ranking={1}/>
+            <Ranking ranking={this.props.ranking}/>
           );
         } else {
           return (
@@ -84,7 +84,8 @@ const mapStateToProps = (state) => {
     questionWasCorrect: state.game.questionWasCorrect,
     showRanking: state.game.showRanking,
     name: state.game.name,
-    token: state.game.token
+    token: state.game.token,
+    ranking: state.game.ranking
   }
 }
 
@@ -105,8 +106,8 @@ const mapDispatchToProps = (dispatch) => {
     onQuestionCorrection: (data) => {
       dispatch(questionCorrection(data));
     },
-    onGameEnd: () => {
-      dispatch(gameEnd());
+    onGameEnd: (data) => {
+      dispatch(gameEnd(data));
     },
     onSaveToken: (data) => {
       dispatch(saveToken(data));
