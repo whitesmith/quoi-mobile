@@ -6,6 +6,7 @@ Initial state
 **************************/
 const initialGameState = {
   running: false,
+  readyToAnswer: false,
   ended: false
 };
 
@@ -14,7 +15,8 @@ const game = (state = initialGameState, action) => {
 
     case types.LOGIN:
       return Object.assign({}, state, {
-        running: true
+        running: true,
+        readyToAnswer: false
       });
 
     default:

@@ -13,7 +13,10 @@ var {
 class Command extends React.Component {
 
   buttonClicked() {
-    console.log('button clicked');
+    const { readyToAnswer } = this.props;
+    if (readyToAnswer) {
+      console.log('button clicked');
+    }
   }
 
   render() {

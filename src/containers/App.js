@@ -7,11 +7,13 @@ import Command from "../components/Command";
 class App extends Component {
 
    render() {
-      const { gameRunning, onLogin } = this.props;
+      const { gameRunning, readyToAnswer, onLogin } = this.props;
 
       if (gameRunning) {
         return (
-          <Command />
+          <Command
+            readyToAnswer={readyToAnswer}
+          />
         );
       } else {
         return (
@@ -26,6 +28,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     gameRunning: state.game.running,
+    readyToAnswer: state.game.readyToAnswer,
     gameEnded: state.game.ended
   }
 }
