@@ -1,17 +1,20 @@
 class CommandHelper {
 
-  static componentDidMount(socket, onQuestionReady, onQuestionGo) {
-    socket.on('question_ready', () => {
-      onQuestionReady();
-      socket.on('question_go', () => {
-        onQuestionGo();
+  static waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo) {
+    if (!questionGo) {
+      socket.on('question_ready', () => {
+        onQuestionReady();
+        socket.on('question_go', () => {
+          onQuestionGo();
+        });
       });
-    });
+    }
   }
 
-  static buttonClicked(questionGo) {
+  static handleButtonClick(questionGo, option, onQuestionAnswer) {
     if (questionGo) {
-      console.log('button clicked');
+      //TODO: emit 'question_answer'
+      onQuestionAnswer();
     }
   }
 }

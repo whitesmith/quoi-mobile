@@ -15,13 +15,18 @@ var {
 class Command extends React.Component {
 
   componentDidMount() {
-    const { socket, onQuestionReady, onQuestionGo } = this.props;
-    CommandHelper.componentDidMount(socket, onQuestionReady, onQuestionGo);
+    const { socket, questionGo, onQuestionReady, onQuestionGo } = this.props;
+    CommandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo);
   }
 
-  buttonClicked() {
-    const { questionGo } = this.props;
-    CommandHelper.buttonClicked(questionGo);
+  componentDidUpdate() {
+    const { socket, questionGo, onQuestionReady, onQuestionGo } = this.props;
+    CommandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo);
+  }
+
+  buttonClicked(option) {
+    const { questionGo, onQuestionAnswer } = this.props;
+    CommandHelper.handleButtonClick(questionGo, option, onQuestionAnswer);
   }
 
   render() {
@@ -33,8 +38,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={this.buttonClicked.bind(this)}
-          background={TouchableNativeFeedback.SelectableBackground()}>
+          onPress={() => this.buttonClicked('A')}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>A</Text>
           </View>
@@ -42,7 +46,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={this.buttonClicked.bind(this)}>
+          onPress={() => this.buttonClicked('B')}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>B</Text>
           </View>
@@ -50,7 +54,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={this.buttonClicked.bind(this)}>
+          onPress={() => this.buttonClicked('C')}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>C</Text>
           </View>
@@ -58,7 +62,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={this.buttonClicked.bind(this)}>
+          onPress={() => this.buttonClicked('D')}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>D</Text>
           </View>
@@ -66,7 +70,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={this.buttonClicked.bind(this)}>
+          onPress={() => this.buttonClicked('E')}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>E</Text>
           </View>

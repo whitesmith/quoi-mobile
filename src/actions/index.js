@@ -18,6 +18,12 @@ export const questionGo = () => {
   }
 }
 
+export const questionAnswer = () => {
+  return {
+    type: types.QUESTION_ANSWER
+  }
+}
+
 export const requestData = (): Object => {
   return {
     type: types.REQUEST_DATA

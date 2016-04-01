@@ -1,6 +1,6 @@
 import React, { Component } from "react-native";
 import { connect } from "react-redux";
-import { login, questionReady, questionGo } from "../actions";
+import { login, questionReady, questionGo, questionAnswer } from "../actions";
 import Home from "../components/Home";
 import Command from "../components/Command";
 
@@ -18,6 +18,7 @@ class App extends Component {
             onQuestionReady={this.props.onQuestionReady}
             questionGo={this.props.questionGo}
             onQuestionGo={this.props.onQuestionGo}
+            onQuestionAnswer={this.props.onQuestionAnswer}
           />
         );
       } else {
@@ -52,6 +53,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onQuestionGo: () => {
       dispatch(questionGo());
+    },
+    onQuestionAnswer: () => {
+      dispatch(questionAnswer());
     }
   }
 }

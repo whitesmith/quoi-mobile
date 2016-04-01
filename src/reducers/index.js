@@ -26,6 +26,11 @@ const game = (state = initialGameState, action) => {
         questionGo: true
       });
 
+    case types.QUESTION_ANSWER:
+      return Object.assign({}, state, {
+        questionGo: false
+      });
+
     default:
       return state;
   }
