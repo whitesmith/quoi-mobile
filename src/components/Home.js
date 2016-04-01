@@ -1,18 +1,26 @@
 import React, { Component, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import t from 'tcomb-form-native';
 
+window.navigator.userAgent = "react-native";
+var io = require('socket.io-client/socket.io');
+const socket = io('http://192.168.0.127:3000', {jsonp: false});
+
 const Form = t.form.Form;
 
 const Model = t.struct({
-  teamName: t.String
+  name: t.String
 });
 
 class Home extends Component {
 
   onPress = () => {
+    const { onLogin } = this.props;
+
     var value = this.refs.form.getValue();
     if (value) {
-      console.log(value);
+      socket.emit("login", {name: value.name});
+      // TODO: wait for accepted login message
+      onLogin();
     }
   }
 

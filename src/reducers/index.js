@@ -10,7 +10,16 @@ const initialGameState = {
 };
 
 const game = (state = initialGameState, action) => {
-  return state;
+  switch (action.type) {
+
+    case types.LOGIN:
+      return Object.assign({}, state, {
+        running: true
+      });
+
+    default:
+      return state;
+  }
 };
 
 const rootReducer = combineReducers({

@@ -1,5 +1,11 @@
 import * as types from './actionTypes';
 
+export const login = () => {
+  return {
+    type: types.LOGIN
+  };
+}
+
 export const requestData = (): Object => {
   return {
     type: types.REQUEST_DATA

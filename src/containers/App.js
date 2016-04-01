@@ -1,7 +1,27 @@
-import React from "react-native";
+import React, { Component } from "react-native";
 import { connect } from "react-redux";
-import { fetchData } from "../actions";
+import { login } from "../actions";
 import Home from "../components/Home";
+import Command from "../components/Command";
+
+class App extends Component {
+
+   render() {
+      const { gameRunning, onLogin } = this.props;
+
+      if (gameRunning) {
+        return (
+          <Command />
+        );
+      } else {
+        return (
+          <Home onLogin={onLogin} />
+        );
+      }
+   }
+
+}
+
 
 const mapStateToProps = (state) => {
   return {
@@ -12,12 +32,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onLogin: () => {
+      dispatch(login());
+    }
   }
 }
 
-const App = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
-
-export default App
+)(App);
