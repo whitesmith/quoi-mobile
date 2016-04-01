@@ -10,14 +10,11 @@ const Model = t.struct({
 class Home extends Component {
 
   onPress = () => {
-    const { onLogin, socket } = this.props;
+    const { socket } = this.props;
 
     var value = this.refs.form.getValue();
     if (value) {
       socket.emit('login', {name: value.name, token: '579c7f6844721f5f'});
-      socket.on('game_wait_start', () => {
-        onLogin();
-      });
     }
   }
 

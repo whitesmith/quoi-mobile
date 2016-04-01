@@ -8,8 +8,11 @@ import Result from "../components/Result";
 class App extends Component {
 
   componentDidMount() {
-    console.log('componentDidMount');
-    const { socket, onQuestionReady, onQuestionGo, onQuestionCorrection } = this.props;
+    const { socket, onLogin, onQuestionReady, onQuestionGo, onQuestionCorrection } = this.props;
+
+    socket.on('game_wait_start', () => {
+      onLogin();
+    });
 
     socket.on('question_correction', (data) => {
       console.log(data);
@@ -48,7 +51,6 @@ class App extends Component {
         return (
           <Home
             socket={this.props.socket}
-            onLogin={this.props.onLogin}
           />
 
         );
