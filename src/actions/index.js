@@ -9,8 +9,8 @@ export const login = () => {
 export const questionReady = (data) => {
   return {
     type: types.QUESTION_READY,
-    question_id: data.id,
-    question_type: data.type
+    questionId: data.id,
+    questionType: data.type
   }
 }
 

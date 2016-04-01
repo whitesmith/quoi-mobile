@@ -25,8 +25,8 @@ const game = (state = initialGameState, action) => {
     case types.QUESTION_READY:
       return Object.assign({}, state, {
         currentQuestion: {
-          id: action.question_id,
-          type: action.question_type
+          id: action.questionId,
+          type: action.questionType
         }
       });
 
