@@ -21,9 +21,7 @@ class Command extends React.Component {
 
   buttonClicked() {
     const { questionGo } = this.props;
-    if (questionGo) {
-      console.log('button clicked');
-    }
+    CommandHelper.buttonClicked(questionGo);
   }
 
   render() {

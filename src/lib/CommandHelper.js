@@ -9,6 +9,11 @@ class CommandHelper {
     });
   }
 
+  static buttonClicked(questionGo) {
+    if (questionGo) {
+      console.log('button clicked');
+    }
+  }
 }
 
 export default CommandHelper;
