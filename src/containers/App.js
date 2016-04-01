@@ -6,7 +6,7 @@ import Command from "../components/Command";
 
 window.navigator.userAgent = "react-native";
 var io = require('socket.io-client/socket.io');
-const socket = io('http://jlbribeiro.tunnels.whitesmith.co/', {jsonp: false});
+const socket = io('http://jlbribeiro.tunnels.whitesmith.co/', {jsonp: false, transports: ['websocket']});
 
 class App extends Component {
 
