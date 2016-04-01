@@ -15,7 +15,7 @@ class Home extends Component {
     var value = this.refs.form.getValue();
     if (value) {
       socket.emit("login", {name: value.name});
-      socket.on('wait_game', () => {
+      socket.on('game_wait_begin', () => {
         onLogin();
       });
     }
