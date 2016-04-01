@@ -1,16 +1,31 @@
 import React from "react-native";
 
 var {
-  StyleSheet,
   View
 } = React;
 
 class Result extends React.Component {
 
+  resultStyle() {
+    const { questionWasCorrect } = this.props;
+
+    var resultColor;
+    if (questionWasCorrect) {
+      resultColor = 'green';
+    } else {
+      resultColor = 'red';
+    }
+
+    return {
+      flex: 1,
+      backgroundColor: resultColor
+    }
+  }
+
   render() {
     return (
       <View
-        style={styles.view}>
+        style={this.resultStyle()}>
       </View>
     );
   }
@@ -21,12 +36,5 @@ Result.propTypes = {
 
 Result.defaultProps = {
 };
-
-var styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    backgroundColor: 'red'
-  }
-});
 
 export default Result;

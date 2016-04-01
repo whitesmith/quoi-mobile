@@ -5,36 +5,49 @@ import Home from "../components/Home";
 import Command from "../components/Command";
 import Result from "../components/Result";
 
-window.navigator.userAgent = "react-native";
-var io = require('socket.io-client/socket.io');
-const socket = io('http://192.168.2.16:3000', {jsonp: false, transports: ['websocket']});
-
 class App extends Component {
+
+  componentDidMount() {
+    console.log('componentDidMount');
+    const { socket, onQuestionReady, onQuestionGo, onQuestionCorrection } = this.props;
+
+    socket.on('question_correction', (data) => {
+      console.log(data);
+      onQuestionCorrection(data);
+    });
+
+    socket.on('question_ready', (data) => {
+      onQuestionReady(data);
+    });
+
+    socket.on('question_go', () => {
+      this.questionGoTime = new Date().getTime();
+      onQuestionGo();
+    });
+  }
 
    render() {
       if (this.props.gameRunning) {
         if (this.props.showQuestionCorrection) {
           return (
-            <Result />
+            <Result
+              questionWasCorrect={this.props.questionWasCorrect}
+            />
           );
         } else {
           return (
             <Command
-              socket={socket}
-              onQuestionReady={this.props.onQuestionReady}
+              socket={this.props.socket}
               questionGo={this.props.questionGo}
-              onQuestionGo={this.props.onQuestionGo}
               onQuestionAnswer={this.props.onQuestionAnswer}
               questionId={this.props.questionId}
-              waitingForCorrection={this.props.waitingForCorrection}
-              onQuestionCorrection={this.props.onQuestionCorrection}
             />
           );
         }
       } else {
         return (
           <Home
-            socket={socket}
+            socket={this.props.socket}
             onLogin={this.props.onLogin}
           />
 
@@ -51,8 +64,8 @@ const mapStateToProps = (state) => {
     questionGo: state.game.questionGo,
     gameEnded: state.game.ended,
     questionId: state.game.currentQuestion.id,
-    waitingForCorrection: state.game.waitingForCorrection,
-    showQuestionCorrection: state.game.showQuestionCorrection
+    showQuestionCorrection: state.game.showQuestionCorrection,
+    questionWasCorrect: state.game.questionWasCorrect
   }
 }
 
@@ -70,8 +83,8 @@ const mapDispatchToProps = (dispatch) => {
     onQuestionAnswer: () => {
       dispatch(questionAnswer());
     },
-    onQuestionCorrection: () => {
-      dispatch(questionCorrection());
+    onQuestionCorrection: (data) => {
+      dispatch(questionCorrection(data));
     }
   }
 }

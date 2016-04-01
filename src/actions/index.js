@@ -26,9 +26,10 @@ export const questionAnswer = () => {
   }
 }
 
-export const questionCorrection = () => {
+export const questionCorrection = (data) => {
   return {
-    type: types.QUESTION_CORRECTION
+    type: types.QUESTION_CORRECTION,
+    questionWasCorrect: data.correct
   }
 }
 
