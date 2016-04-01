@@ -7,8 +7,8 @@ class CommandHelper {
 
   waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo) {
     if (!questionGo) {
-      socket.on('question_ready', () => {
-        onQuestionReady();
+      socket.on('question_ready', (data) => {
+        onQuestionReady(data);
         socket.on('question_go', () => {
           this.questionGoTime = new Date().getTime();
           onQuestionGo();

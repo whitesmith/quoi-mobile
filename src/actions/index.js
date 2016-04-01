@@ -6,9 +6,11 @@ export const login = () => {
   };
 }
 
-export const questionReady = () => {
+export const questionReady = (data) => {
   return {
-    type: types.QUESTION_READY
+    type: types.QUESTION_READY,
+    question_id: data.id,
+    question_type: data.type
   }
 }
 

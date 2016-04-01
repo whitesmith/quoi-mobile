@@ -48,8 +48,8 @@ const mapDispatchToProps = (dispatch) => {
     onLogin: () => {
       dispatch(login());
     },
-    onQuestionReady: () => {
-      dispatch(questionReady());
+    onQuestionReady: (data) => {
+      dispatch(questionReady(data));
     },
     onQuestionGo: () => {
       dispatch(questionGo());
