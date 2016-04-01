@@ -26,6 +26,12 @@ export const questionAnswer = () => {
   }
 }
 
+export const questionCorrection = () => {
+  return {
+    type: types.QUESTION_CORRECTION
+  }
+}
+
 export const requestData = (): Object => {
   return {
     type: types.REQUEST_DATA

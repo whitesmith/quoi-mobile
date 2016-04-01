@@ -11,6 +11,8 @@ const initialGameState = {
     id: -1,
     type: ''
   },
+  waitingForCorrection: false,
+  showQuestionCorrection: false,
   ended: false
 };
 
@@ -27,7 +29,8 @@ const game = (state = initialGameState, action) => {
         currentQuestion: {
           id: action.questionId,
           type: action.questionType
-        }
+        },
+        showQuestionCorrection: false
       });
 
     case types.QUESTION_GO:
@@ -41,7 +44,14 @@ const game = (state = initialGameState, action) => {
         currentQuestion: {
           id: -1,
           type: ''
-        }
+        },
+        waitingForCorrection: true
+      });
+
+    case types.QUESTION_CORRECTION:
+      return Object.assign({}, state, {
+        waitingForCorrection: false,
+        showQuestionCorrection: true
       });
 
     default:

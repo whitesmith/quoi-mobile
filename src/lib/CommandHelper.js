@@ -5,8 +5,13 @@ class CommandHelper {
     this.questionAnswerTime = null;
   }
 
-  waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo) {
-    if (!questionGo) {
+  waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo, waitingForCorrection, onQuestionCorrection) {
+    if (waitingForCorrection) {
+      socket.on('question_correction', (data) => {
+        onQuestionCorrection();
+      });
+    }
+    else if (!questionGo) {
       socket.on('question_ready', (data) => {
         onQuestionReady(data);
         socket.on('question_go', () => {

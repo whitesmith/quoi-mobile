@@ -15,14 +15,14 @@ var {
 class Command extends React.Component {
 
   componentDidMount() {
-    const { socket, questionGo, onQuestionReady, onQuestionGo } = this.props;
+    const { socket, questionGo, onQuestionReady, onQuestionGo, waitingForCorrection, onQuestionCorrection } = this.props;
     this.commandHelper = new CommandHelper();
-    this.commandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo);
+    this.commandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo, waitingForCorrection, onQuestionCorrection);
   }
 
   componentDidUpdate() {
-    const { socket, questionGo, onQuestionReady, onQuestionGo } = this.props;
-    this.commandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo);
+    const { socket, questionGo, onQuestionReady, onQuestionGo, waitingForCorrection, onQuestionCorrection } = this.props;
+    this.commandHelper.waitForQuestion(socket, questionGo, onQuestionReady, onQuestionGo, waitingForCorrection, onQuestionCorrection);
   }
 
   buttonClicked(option) {

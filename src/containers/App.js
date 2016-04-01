@@ -1,12 +1,12 @@
 import React, { Component } from "react-native";
 import { connect } from "react-redux";
-import { login, questionReady, questionGo, questionAnswer } from "../actions";
+import { login, questionReady, questionGo, questionAnswer, questionCorrection } from "../actions";
 import Home from "../components/Home";
 import Command from "../components/Command";
 
 window.navigator.userAgent = "react-native";
 var io = require('socket.io-client/socket.io');
-const socket = io('http://jlbribeiro.tunnels.whitesmith.co/', {jsonp: false, transports: ['websocket']});
+const socket = io('http://192.168.2.16:3000', {jsonp: false, transports: ['websocket']});
 
 class App extends Component {
 
@@ -20,6 +20,8 @@ class App extends Component {
             onQuestionGo={this.props.onQuestionGo}
             onQuestionAnswer={this.props.onQuestionAnswer}
             questionId={this.props.questionId}
+            waitingForCorrection={this.props.waitingForCorrection}
+            onQuestionCorrection={this.props.onQuestionCorrection}
           />
         );
       } else {
@@ -41,7 +43,8 @@ const mapStateToProps = (state) => {
     gameRunning: state.game.running,
     questionGo: state.game.questionGo,
     gameEnded: state.game.ended,
-    questionId: state.game.currentQuestion.id
+    questionId: state.game.currentQuestion.id,
+    waitingForCorrection: state.game.waitingForCorrection
   }
 }
 
@@ -58,6 +61,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onQuestionAnswer: () => {
       dispatch(questionAnswer());
+    },
+    onQuestionCorrection: () => {
+      dispatch(questionCorrection());
     }
   }
 }
