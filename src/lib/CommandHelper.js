@@ -17,7 +17,7 @@ class CommandHelper {
     }
   }
 
-  handleButtonClick(questionGo, option, onQuestionAnswer) {
+  handleButtonClick(socket, questionGo, option, questionId, onQuestionAnswer) {
     if (questionGo) {
       // Calculate response time
       this.questionAnswerTime = new Date().getTime();
@@ -25,9 +25,13 @@ class CommandHelper {
       this.questionGoTime = null;
       this.questionAnswerTime = null;
 
-      //TODO: emit 'question_answer'
-      console.log(option);
-      console.log(questionTime / 1000);
+      // emit 'question_answer'
+      socket.emit('question_answer', {
+        id: questionId,
+        answer: [option],
+        time: questionTime
+      });
+
       onQuestionAnswer();
     }
   }

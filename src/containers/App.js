@@ -19,6 +19,7 @@ class App extends Component {
             questionGo={this.props.questionGo}
             onQuestionGo={this.props.onQuestionGo}
             onQuestionAnswer={this.props.onQuestionAnswer}
+            questionId={this.props.questionId}
           />
         );
       } else {
@@ -39,7 +40,8 @@ const mapStateToProps = (state) => {
   return {
     gameRunning: state.game.running,
     questionGo: state.game.questionGo,
-    gameEnded: state.game.ended
+    gameEnded: state.game.ended,
+    questionId: state.game.currentQuestion.id
   }
 }
 

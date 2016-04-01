@@ -26,8 +26,8 @@ class Command extends React.Component {
   }
 
   buttonClicked(option) {
-    const { questionGo, onQuestionAnswer } = this.props;
-    this.commandHelper.handleButtonClick(questionGo, option, onQuestionAnswer);
+    const { socket, questionGo, onQuestionAnswer, questionId } = this.props;
+    this.commandHelper.handleButtonClick(socket, questionGo, option, questionId, onQuestionAnswer);
   }
 
   render() {
@@ -39,7 +39,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={() => this.buttonClicked('A')}>
+          onPress={() => this.buttonClicked(1)}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>A</Text>
           </View>
@@ -47,7 +47,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={() => this.buttonClicked('B')}>
+          onPress={() => this.buttonClicked(2)}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>B</Text>
           </View>
@@ -55,7 +55,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={() => this.buttonClicked('C')}>
+          onPress={() => this.buttonClicked(3)}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>C</Text>
           </View>
@@ -63,7 +63,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={() => this.buttonClicked('D')}>
+          onPress={() => this.buttonClicked(4)}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>D</Text>
           </View>
@@ -71,7 +71,7 @@ class Command extends React.Component {
 
         <TouchableNativeFeedback
           style={styles.touchableNativeFeedback}
-          onPress={() => this.buttonClicked('E')}>
+          onPress={() => this.buttonClicked(5)}>
           <View style={styles.buttonView}>
             <Text style={styles.buttonText}>E</Text>
           </View>
