@@ -13,7 +13,10 @@ const initialGameState = {
   },
   showQuestionCorrection: false,
   questionWasCorrect: false,
-  ended: false
+  ended: false,
+  showRanking: false,
+  name: '',
+  token: ''
 };
 
 const game = (state = initialGameState, action) => {
@@ -52,6 +55,20 @@ const game = (state = initialGameState, action) => {
       return Object.assign({}, state, {
         showQuestionCorrection: true,
         questionWasCorrect: action.questionWasCorrect
+      });
+
+    case types.GAME_END:
+      return Object.assign({}, state, {
+        running: false,
+        showRanking: true,
+        showQuestionCorrection: false,
+        questionWasCorrect: false
+      });
+
+    case types.SAVE_TOKEN:
+      return Object.assign({}, state, {
+        name: action.name,
+        token: action.token
       });
 
     default:

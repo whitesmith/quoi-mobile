@@ -1,22 +1,22 @@
 import React, { Component } from "react-native";
 import { connect } from "react-redux";
-import { login, questionReady, questionGo, questionAnswer, questionCorrection } from "../actions";
+import { login, questionReady, questionGo, questionAnswer, questionCorrection, gameEnd, saveToken } from "../actions";
 import Home from "../components/Home";
 import Command from "../components/Command";
 import Result from "../components/Result";
+import Ranking from "../components/Ranking";
 
 class App extends Component {
 
   componentDidMount() {
-    const { socket, onLogin, onQuestionReady, onQuestionGo, onQuestionCorrection } = this.props;
+    const { socket, onLogin, onQuestionReady, onQuestionGo, onQuestionCorrection, onGameEnd, name, token } = this.props;
+
+    socket.on('reconnect', () => {
+      socket.emit('login', {name: name, token: token});
+    });
 
     socket.on('game_wait_start', () => {
       onLogin();
-    });
-
-    socket.on('question_correction', (data) => {
-      console.log(data);
-      onQuestionCorrection(data);
     });
 
     socket.on('question_ready', (data) => {
@@ -26,6 +26,14 @@ class App extends Component {
     socket.on('question_go', () => {
       this.questionGoTime = new Date().getTime();
       onQuestionGo();
+    });
+
+    socket.on('question_correction', (data) => {
+      onQuestionCorrection(data);
+    });
+
+    socket.on('game_end', () => {
+      onGameEnd();
     });
   }
 
@@ -48,12 +56,18 @@ class App extends Component {
           );
         }
       } else {
-        return (
-          <Home
-            socket={this.props.socket}
-          />
-
-        );
+        if (this.props.showRanking) {
+          return (
+            <Ranking ranking={1}/>
+          );
+        } else {
+          return (
+            <Home
+              socket={this.props.socket}
+              onSaveToken={this.props.onSaveToken}
+            />
+          );
+        }
       }
    }
 
@@ -67,7 +81,10 @@ const mapStateToProps = (state) => {
     gameEnded: state.game.ended,
     questionId: state.game.currentQuestion.id,
     showQuestionCorrection: state.game.showQuestionCorrection,
-    questionWasCorrect: state.game.questionWasCorrect
+    questionWasCorrect: state.game.questionWasCorrect,
+    showRanking: state.game.showRanking,
+    name: state.game.name,
+    token: state.game.token
   }
 }
 
@@ -87,6 +104,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onQuestionCorrection: (data) => {
       dispatch(questionCorrection(data));
+    },
+    onGameEnd: () => {
+      dispatch(gameEnd());
+    },
+    onSaveToken: (data) => {
+      dispatch(saveToken(data));
     }
   }
 }

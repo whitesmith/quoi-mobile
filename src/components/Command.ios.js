@@ -23,11 +23,29 @@ class Command extends React.Component {
     this.commandHelper.handleButtonClick(socket, questionGo, option, questionId, onQuestionAnswer);
   }
 
+  contentContainerStyle() {
+    const { questionGo } = this.props;
+
+    var resultColor;
+    if (questionGo) {
+      resultColor = 'white';
+    } else {
+      resultColor = 'grey';
+    }
+
+    return {
+      height: Dimensions.get('window').height,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: resultColor
+    }
+  }
+
   render() {
     return (
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={styles.contentContainer}>
+        contentContainerStyle={this.contentContainerStyle()}>
 
         <TouchableHighlight
           style={styles.touchableHighlight}
@@ -82,11 +100,6 @@ Command.defaultProps = {
 
 var styles = StyleSheet.create({
   scrollView: {
-  },
-  contentContainer: {
-    height: Dimensions.get('window').height,
-    justifyContent: "center",
-    alignItems: "center"
   },
   touchableHighlight: {
     flex: 1,

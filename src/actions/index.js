@@ -33,6 +33,20 @@ export const questionCorrection = (data) => {
   }
 }
 
+export const gameEnd = () => {
+  return {
+    type: types.GAME_END
+  }
+}
+
+export const saveToken = (data) => {
+  return {
+    type: types.SAVE_TOKEN,
+    name: data.name,
+    token: data.token
+  }
+}
+
 export const requestData = (): Object => {
   return {
     type: types.REQUEST_DATA

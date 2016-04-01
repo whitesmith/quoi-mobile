@@ -9,10 +9,11 @@ var {
 class Ranking extends React.Component {
 
   render() {
+    const { ranking } = this.props
     return (
       <View
         style={styles.view}>
-        <Text>Your ranking: 5</Text>
+        <Text>Your ranking: {ranking}</Text>
       </View>
     );
   }

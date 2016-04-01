@@ -10,11 +10,16 @@ const Model = t.struct({
 class Home extends Component {
 
   onPress = () => {
-    const { socket } = this.props;
+    const { socket, onSaveToken } = this.props;
 
     var value = this.refs.form.getValue();
     if (value) {
-      socket.emit('login', {name: value.name, token: '579c7f6844721f5f'});
+      socket.emit('login', {name: value.name}, (err, data) => {
+        onSaveToken({
+          name: value.name,
+          token: data.token
+        });
+      });
     }
   }
 
