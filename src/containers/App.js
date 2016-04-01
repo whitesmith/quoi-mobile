@@ -1,23 +1,22 @@
 import React, { Component } from "react-native";
 import { connect } from "react-redux";
-import { login } from "../actions";
+import { login, newQuestion } from "../actions";
 import Home from "../components/Home";
 import Command from "../components/Command";
 
 class App extends Component {
 
    render() {
-      const { gameRunning, readyToAnswer, onLogin } = this.props;
-
-      if (gameRunning) {
+      if (this.props.gameRunning) {
         return (
           <Command
-            readyToAnswer={readyToAnswer}
+            readyToAnswer={this.props.readyToAnswer}
+            onNewQuestion={this.props.onNewQuestion}
           />
         );
       } else {
         return (
-          <Home onLogin={onLogin} />
+          <Home onLogin={this.props.onLogin} />
         );
       }
    }
@@ -37,6 +36,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLogin: () => {
       dispatch(login());
+    },
+    onNewQuestion: () => {
+      dispatch(newQuestion());
     }
   }
 }

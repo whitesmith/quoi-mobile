@@ -6,6 +6,12 @@ export const login = () => {
   };
 }
 
+export const newQuestion = () => {
+  return {
+    type: types.NEW_QUESTION
+  }
+}
+
 export const requestData = (): Object => {
   return {
     type: types.REQUEST_DATA

@@ -15,8 +15,12 @@ const game = (state = initialGameState, action) => {
 
     case types.LOGIN:
       return Object.assign({}, state, {
-        running: true,
-        readyToAnswer: false
+        running: true
+      });
+
+    case types.NEW_QUESTION:
+      return Object.assign({}, state, {
+        readyToAnswer: true
       });
 
     default:

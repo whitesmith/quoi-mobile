@@ -12,6 +12,13 @@ var {
 
 class Command extends React.Component {
 
+  componentDidMount() {
+    const { onNewQuestion } = this.props;
+    setTimeout(() => {
+      onNewQuestion();
+    }, 5000);
+  }
+
   buttonClicked() {
     const { readyToAnswer } = this.props;
     if (readyToAnswer) {
