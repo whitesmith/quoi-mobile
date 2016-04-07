@@ -56,6 +56,12 @@ export const foundServer = (data) => {
   }
 }
 
+export const gameFinished = () => {
+  return {
+    type: types.GAME_FINISHED
+  }
+}
+
 export const requestData = (): Object => {
   return {
     type: types.REQUEST_DATA

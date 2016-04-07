@@ -81,6 +81,9 @@ const game = (state = initialGameState, action) => {
         serverIP: action.serverIP
       });
 
+    case types.GAME_FINISHED:
+      return initialGameState;
+
     default:
       return state;
   }

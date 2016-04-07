@@ -1,4 +1,5 @@
 import React from "react-native";
+import Button from 'react-native-button';
 
 var {
   StyleSheet,
@@ -8,12 +9,24 @@ var {
 
 class Ranking extends React.Component {
 
+  onPress(event) {
+    const { onGameFinished } = this.props;
+    onGameFinished();
+  }
+
   render() {
     const { ranking } = this.props
     return (
       <View
         style={styles.view}>
         <Text>Your ranking: {ranking}</Text>
+        <Button
+          containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: 'blue'}}
+          style={{fontSize: 20, color: 'white'}}
+          onPress={() => this.onPress()}
+        >
+          Finish!
+        </Button>
       </View>
     );
   }
