@@ -18,6 +18,13 @@ class Command extends React.Component {
     this.commandHelper = new CommandHelper();
   }
 
+  componentDidUpdate() {
+    const { questionGo } = this.props;
+    if (questionGo) {
+      this.commandHelper.setQuestionGoTime(new Date());
+    }
+  }
+
   buttonClicked(option) {
     const { socket, questionGo, onQuestionAnswer, questionId } = this.props;
     this.commandHelper.handleButtonClick(socket, questionGo, option, questionId, onQuestionAnswer);

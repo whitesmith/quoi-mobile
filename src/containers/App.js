@@ -112,7 +112,6 @@ const mapDispatchToProps = (dispatch) => {
         });
 
         socket.on('question_go', () => {
-          this.questionGoTime = new Date().getTime();
           dispatch(questionGo());
         });
 
