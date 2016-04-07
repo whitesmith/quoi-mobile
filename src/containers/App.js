@@ -1,43 +1,34 @@
 import React, { Component } from "react-native";
 import { connect } from "react-redux";
-import { login, questionReady, questionGo, questionAnswer, questionCorrection, gameEnd, saveToken } from "../actions";
+import { login, questionReady, questionGo, questionAnswer, questionCorrection, gameEnd, saveToken, foundServer } from "../actions";
 import Home from "../components/Home";
 import Command from "../components/Command";
 import Result from "../components/Result";
 import Ranking from "../components/Ranking";
+import WaitingServer from "../components/WaitingServer";
+
+window.navigator.userAgent = "react-native";
+var io = require('socket.io-client/socket.io');
+var socket;
 
 class App extends Component {
 
   componentDidMount() {
-    const { socket, onLogin, onQuestionReady, onQuestionGo, onQuestionCorrection, onGameEnd, name, token } = this.props;
+    const { name, token } = this.props;
 
     // socket.on('reconnect', () => {
     //   socket.emit('login', {name: name, token: token});
     // });
-
-    socket.on('game_wait_start', () => {
-      onLogin();
-    });
-
-    socket.on('question_ready', (data) => {
-      onQuestionReady(data);
-    });
-
-    socket.on('question_go', () => {
-      this.questionGoTime = new Date().getTime();
-      onQuestionGo();
-    });
-
-    socket.on('question_correction', (data) => {
-      onQuestionCorrection(data);
-    });
-
-    socket.on('game_end', (data) => {
-      onGameEnd(data);
-    });
   }
 
-   render() {
+  render() {
+    if (!this.props.foundServer) {
+      return (
+        <WaitingServer
+          onFoundServer={this.props.onFoundServer}
+        />
+      );
+    } else {
       if (this.props.gameRunning) {
         if (this.props.showQuestionCorrection) {
           return (
@@ -48,7 +39,7 @@ class App extends Component {
         } else {
           return (
             <Command
-              socket={this.props.socket}
+              socket={socket}
               questionGo={this.props.questionGo}
               onQuestionAnswer={this.props.onQuestionAnswer}
               questionId={this.props.questionId}
@@ -63,19 +54,20 @@ class App extends Component {
         } else {
           return (
             <Home
-              socket={this.props.socket}
+              socket={socket}
               onSaveToken={this.props.onSaveToken}
             />
           );
         }
       }
-   }
-
+    }
+  }
 }
 
 
 const mapStateToProps = (state) => {
   return {
+    foundServer: state.game.foundServer,
     gameRunning: state.game.running,
     questionGo: state.game.questionGo,
     gameEnded: state.game.ended,
@@ -91,26 +83,42 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogin: () => {
-      dispatch(login());
-    },
-    onQuestionReady: (data) => {
-      dispatch(questionReady(data));
-    },
-    onQuestionGo: () => {
-      dispatch(questionGo());
-    },
     onQuestionAnswer: () => {
       dispatch(questionAnswer());
     },
-    onQuestionCorrection: (data) => {
-      dispatch(questionCorrection(data));
-    },
-    onGameEnd: (data) => {
-      dispatch(gameEnd(data));
-    },
     onSaveToken: (data) => {
       dispatch(saveToken(data));
+    },
+    onFoundServer: (data) => {
+      const ip = data.serverIP + ':3000';
+      socket = io(ip, {jsonp: false, transports: ['websocket']});
+
+      socket.on('connect', () => {
+
+        socket.on('game_wait_start', () => {
+          dispatch(login());
+        });
+
+        socket.on('question_ready', (data) => {
+          dispatch(questionReady(data));
+        });
+
+        socket.on('question_go', () => {
+          this.questionGoTime = new Date().getTime();
+          dispatch(questionGo());
+        });
+
+        socket.on('question_correction', (data) => {
+          dispatch(questionCorrection(data));
+        });
+
+        socket.on('game_end', (data) => {
+          dispatch(gameEnd(data));
+        });
+
+        dispatch(foundServer(data));
+        
+      });
     }
   }
 }

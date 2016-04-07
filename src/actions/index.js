@@ -48,6 +48,14 @@ export const saveToken = (data) => {
   }
 }
 
+export const foundServer = (data) => {
+  return {
+    type: types.FOUND_SERVER,
+    serverIP: data.serverIP,
+    token: data.token
+  }
+}
+
 export const requestData = (): Object => {
   return {
     type: types.REQUEST_DATA

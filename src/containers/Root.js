@@ -6,15 +6,11 @@ import App from './App';
 
 const store = configureStore();
 
-window.navigator.userAgent = "react-native";
-var io = require('socket.io-client/socket.io');
-const socket = io('http://192.168.2.16:3000', {jsonp: false, transports: ['websocket']});
-
 class Root extends React.Component {
   render () {
     return (
       <Provider store={store}>
-        <App socket={socket}/>
+        <App />
       </Provider>
     );
   }

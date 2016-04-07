@@ -5,6 +5,8 @@ import * as types from '../actions/actionTypes';
 Initial state
 **************************/
 const initialGameState = {
+  foundServer: false,
+  serverIP: '',
   running: false,
   questionGo: false,
   currentQuestion: {
@@ -71,6 +73,12 @@ const game = (state = initialGameState, action) => {
       return Object.assign({}, state, {
         name: action.name,
         token: action.token
+      });
+
+    case types.FOUND_SERVER:
+      return Object.assign({}, state, {
+        foundServer: true,
+        serverIP: action.serverIP
       });
 
     default:
