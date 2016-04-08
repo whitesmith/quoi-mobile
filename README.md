@@ -17,7 +17,7 @@ For iOS development you have to install [Xcode](https://developer.apple.com/xcod
 
 ### Android setup
 
-To write React Native apps for Android, you will need to install the Android SDK (and an Android emulator if you want to work on your app without having to use a physical device). See [Android setup guide](https://facebook.github.io/react-native/docs/android-setup.html) for instructions on how to set up your Android environment.
+For Android development, you will need to install the Android SDK (and an Android emulator if you want to work on your app without having to use a physical device). See [Android setup guide](https://facebook.github.io/react-native/docs/android-setup.html) for instructions on how to set up your Android environment.
 
 **Note:** When creating an emulator, I recommend you to use [Genymotion](https://www.genymotion.com/) instead of the stock Google emulator (instructions are in the above link also).
 
